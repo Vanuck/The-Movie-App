@@ -212,3 +212,7 @@ Timestamp: Tue Dec 12 2023 14:44:06 GMT-0800 (Pacific Standard Time)
 ::1 - - [02/Jan/2024:21:11:34 +0000] "GET /movie/Goodfellas HTTP/1.1" 404 155 "-" "PostmanRuntime/7.36.0"
 ::1 - - [04/Jan/2024:21:41:38 +0000] "GET /Movies/Director/George%Lucas HTTP/1.1" 404 169 "-" "PostmanRuntime/7.36.0"
 ::1 - - [04/Jan/2024:21:42:52 +0000] "GET /Movies/Director/Quentin%20Tarantino HTTP/1.1" 404 174 "-" "PostmanRuntime/7.36.0"
+::1 - - [04/Jan/2024:22:18:32 +0000] "GET /users/1 HTTP/1.1" 404 146 "-" "PostmanRuntime/7.36.0"
+::1 - - [04/Jan/2024:22:19:25 +0000] "GET /users/1 HTTP/1.1" 404 146 "-" "PostmanRuntime/7.36.0"
+::1 - - [04/Jan/2024:22:19:46 +0000] "GET /users/2 HTTP/1.1" 404 146 "-" "PostmanRuntime/7.36.0"
+::1 - - [04/Jan/2024:22:20:58 +0000] "GET /users HTTP/1.1" 404 144 "-" "PostmanRuntime/7.36.0"

@@ -3,16 +3,198 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Documentation file: Movie App</title>
+    <title>Documentation file: The Movie App</title>
+    <style>
+      * {
+        margin: 2rem;
+      }
+      table,
+      th,
+      td {
+        border: 1px solid;
+      }
+    </style>
   </head>
   <body>
     <h1>Movie App</h1>
-    <div>
-      Goal: To build the server-side component of a “movies” web application.
-      The web application will provide users with access to information about
-      different movies, directors, and genres. Users will be able to sign up,
-      update their personal information, and create a list of their favorite
-      movies.
-    </div>
+    <p>
+      A server-side component of a “top movies” web application. The web
+      application will provide users with access to information about different
+      movies, directors, and genres. Users will be able to sign up, update their
+      personal information, and create a list of their favorite movies.
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Project Model</th>
+          <th>URL</th>
+          <th>HTTP method</th>
+          <th>Request data format</th>
+          <th>Response data format</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Return a list of ALL movies to the user</td>
+          <td>/movies</td>
+          <td>GET</td>
+          <td>None</td>
+          <td>A JSON object holding data about all movies</td>
+        </tr>
+        <tr>
+          <td>Return data about a single movie by title to the user</td>
+          <td>/movies/[title]</td>
+          <td>GET</td>
+          <td>None</td>
+          <td>
+            A JSON object holding data about a single movie, containing title,
+            year, genre, director. Example:
+            <code>
+              "Genre": "Name": "Gangster", "Description": "A film belonging to a
+              genre that focuses on gangs and organized crime. It is a subgenre
+              of crime film", "Director": "Name": "Quentin Tarantino", "Bio":
+              "Quentin Tarantino Born March 27, 1963 is an American film
+              director, screenwriter, and actor. His films are characterized by
+              stylized violence, extended dialogue including a pervasive use of
+              profanity, and references to popular culture. He has been
+              considered 'the single most influential director of his
+              generation.", "Birth": "1963", "Title": "Reservoir Dogs", ",
+              "Description": "Six criminals with pseudonyms, and each strangers
+              to one another, are hired to carry out a robbery. The heist is
+              ambushed by police and the gang are forced to shoot their way out.
+              At their warehouse rendezvous, the survivors, realising that they
+              were set up, try to find the traitor in their midst.", "Year":
+              "1992"
+            </code>
+          </td>
+        </tr>
+        <tr>
+          <td>Return data about a genre by name</td>
+          <td>/movies/genre/[genreName]</td>
+          <td>GET</td>
+          <td>None</td>
+          <td>
+            A JSON object holding data about a single genre, containing genre
+            name, description. Example:
+            <code>
+              "Genre": "Name": "Gangster", "Description": "A film belonging to a
+              genre that focuses on gangs and organized crime. It is a subgenre
+              of crime film"
+            </code>
+          </td>
+        </tr>
+        <tr>
+          <td>Return data about a director by name</td>
+          <td>/movies/directors/[directorName]</td>
+          <td>GET</td>
+          <td>None</td>
+          <td>
+            A JSON object holding data about a single director, containing
+            director name, bio, birth and death year. Example:
+            <code>
+              "Director": "Name": "Quentin Tarantino", "Bio": "Quentin Tarantino
+              Born March 27, 1963 is an American film director, screenwriter,
+              and actor. His films are characterized by stylized violence,
+              extended dialogue including a pervasive use of profanity, and
+              references to popular culture. He has been considered 'the single
+              most influential director of his generation.", "Birth": "1963"
+            </code>
+          </td>
+        </tr>
+        <tr>
+          <td>Return a list of ALL users</td>
+          <td>/users</td>
+          <td>GET</td>
+          <td>None</td>
+          <td>A JSON object holding data about all users</td>
+        </tr>
+        <tr>
+          <td>Return data about a single user by username</td>
+          <td>/users/[Username]</td>
+          <td>GET</td>
+          <td>None</td>
+          <td>
+            A JSON object holding data about a single user, containing username,
+            password, favorite movies. Example:
+            <code>
+              "id": "83a15db6-79e1-4583-a9c2-1b2398c2f52e", "Username": "Jacob",
+              "Password": "password1", "FavoriteMovies": []
+            </code>
+          </td>
+        </tr>
+        <tr>
+          <td>Allow new users to register</td>
+          <td>/users</td>
+          <td>POST</td>
+          <td>
+            A JSON object holding data about the user to add, structured like:
+            <code> ID: Integer, Username: String, Password: String </code>
+          </td>
+          <td>
+            A JSON object holding data about the user that was added, including
+            an ID. Example:
+            <code>
+              "Username": "Testuser", "Password": "1234", "FavoriteMovies": [],
+              "id": "83a15db6-79e1-4583-a9c2-1b2398c2f52e"
+            </code>
+          </td>
+        </tr>
+        <tr>
+          <td>Allow users to update their user info by Username</td>
+          <td>/users/[Username]</td>
+          <td>PUT</td>
+          <td>
+            A JSON object holding data about the user which needs to be updated,
+            structured like:
+            <code>
+              Username: req.body.Username, Password: req.body.Password
+            </code>
+          </td>
+          <td>
+            A JSON object holding data about the updated user information.
+            Example:
+            <code>
+              "id": "83a15db6-79e1-4583-a9c2-1b2398c2f52e", "Username": "Jacob",
+              "Password": "newpassword", "FavoriteMovies": []
+            </code>
+          </td>
+        </tr>
+        <tr>
+          <td>Allow users to add a movie to their list of favorites</td>
+          <td>/users/[Username]/movies/[MovieID]</td>
+          <td>POST</td>
+          <td>None</td>
+          <td>
+            A JSON object holding data about the updated user information.
+            Example:
+            <code>
+              "id": "83a15db6-79e1-4583-a9c2-1b2398c2f52e", "Username": "Jacob",
+              "Password": "4321", "FavoriteMovies": []
+            </code>
+          </td>
+        </tr>
+        <tr>
+          <td>Allow users to remove a movie from their list of favorites</td>
+          <td>/users/[Username]/movies/[MovieID]</td>
+          <td>DELETE</td>
+          <td>None</td>
+          <td>
+            A JSON object holding data about the updated user information.
+            Example:
+            <code>
+              "id": "83a15db6-79e1-4583-a9c2-1b2398c2f52e", "Username": "Jacob",
+              "Password": "4321", "FavoriteMovies": []
+            </code>
+          </td>
+        </tr>
+        <tr>
+          <td>Allow existing users to deregister</td>
+          <td>/users/[Username]</td>
+          <td>DELETE</td>
+          <td>None</td>
+          <td>Text message indicating they deregistered successfully.</td>
+        </tr>
+      </tbody>
+    </table>
   </body>
 </html>
