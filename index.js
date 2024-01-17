@@ -276,10 +276,7 @@ app.use((err, req, res, next) => {
   res.status(500).send("HAL, I think we have a problem.");
 });
 
-app.listen(8080, () => {
-  console.log("My server is running on port 8080.");
+const port = process.env.PORT || 8080;
+app.listen(port, "0.0.0.0", () => {
+  console.log("Listening on Port " + port);
 });
-
-//app.get("/documentation.html", (req, res) => {
-// res.sendFile("public/documentation.html", { root: __dirname });
-//});
