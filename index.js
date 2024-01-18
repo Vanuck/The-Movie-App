@@ -17,7 +17,7 @@ const Directors = Models.Director;
 const cors = require("cors");
 app.use(cors());
 
-mongoose.connect("mongodb://localhost:27017/themovieapp", {
+mongoose.connect(process.env.CONNECTION_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
