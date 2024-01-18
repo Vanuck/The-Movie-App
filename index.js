@@ -9,6 +9,7 @@ const path = require("path");
 
 const mongoose = require("mongoose");
 const Models = require("./models.js");
+const bcrypt = require("bcrypt");
 
 const Movies = Models.Movie;
 const Users = Models.User;
