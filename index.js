@@ -31,6 +31,9 @@ let auth = require("./auth")(app);
 const passport = require("passport");
 require("./passport");
 
+// auto-sends all files requested from the public folder
+app.use(express.static("public"));
+
 //Password Hashing section
 app.post(
   "/users",
@@ -289,6 +292,9 @@ app.put(
       });
   }
 );
+
+// access documentation.html using express.static
+app.use("/documentation", express.static("public"));
 
 //error code catcher
 app.use((err, req, res, next) => {
