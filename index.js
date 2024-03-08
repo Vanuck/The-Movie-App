@@ -16,8 +16,6 @@ const Movies = Models.Movie;
 const Users = Models.User;
 const Genres = Models.Genre;
 const Directors = Models.Director;
-const cors = require("cors");
-app.use(cors());
 
 mongoose.connect(process.env.CONNECTION_URI, {
   useNewUrlParser: true,
@@ -26,6 +24,9 @@ mongoose.connect(process.env.CONNECTION_URI, {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+const cors = require("cors");
+app.use(cors());
 
 let auth = require("./auth")(app);
 const passport = require("passport");
