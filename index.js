@@ -260,6 +260,25 @@ app.post(
       });
   }
 );
+//DELETE a movie from a user's list of favorites
+app.delete(
+  "/users/:Username/movies/:MovieID",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    await Users.findOneAndUpdate(
+      { username: req.params.username },
+      { $pull: { favoriteMovies: req.params.name } },
+      { new: true }
+    )
+      .then((updatedUser) => {
+        res.json(updatedUser);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      });
+  }
+);
 
 //UPDATE user information and only allow access to registered user
 app.put(
