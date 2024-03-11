@@ -104,13 +104,13 @@ app.delete(
   async (req, res) => {
     // CONDITION TO CHECK ADDED HERE
     if (req.user.Username !== req.params.Username) {
-      return res.status(400).send("Permission denied");
+      return res.status(401).send("Permission denied");
     }
     // CONDITION ENDS
     Users.findOneAndDelete({ Username: req.params.Username })
       .then((user) => {
         if (!user) {
-          res.status(400).send(req.params.Username + "was not found");
+          res.status(404).send(req.params.Username + "was not found");
         } else {
           res.status(200).send(req.params.Username + "was deleted");
         }
@@ -266,9 +266,13 @@ app.delete(
   "/users/:Username/movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
+    // CONDITION TO CHECK ADDED HERE
+    if (req.user.Username !== req.params.Username) {
+      return res.status(401).send("Permission denied");
+    }
     await Users.findOneAndUpdate(
-      { username: req.params.username },
-      { $pull: { favoriteMovies: req.params.name } },
+      { username: req.params.Username },
+      { $pull: { favoriteMovies: req.params.MovieID } },
       { new: true }
     )
       .then((updatedUser) => {
@@ -288,19 +292,20 @@ app.put(
   async (req, res) => {
     // CONDITION TO CHECK ADDED HERE
     if (req.user.Username !== req.params.Username) {
-      return res.status(400).send("Permission denied");
+      return res.status(401).send("Permission denied");
+    }
+    const user = {
+      Username: req.body.Username,
+      Email: req.body.Email,
+      Birthday: req.body.Birthday,
+    };
+    if (req.body.Password) {
+      user.Password = req.body.Password;
     }
     // CONDITION ENDS
     await Users.findOneAndUpdate(
       { Username: req.params.Username },
-      {
-        $set: {
-          Username: req.body.Username,
-          Password: req.body.Password,
-          Email: req.body.Email,
-          Birthday: req.body.Birthday,
-        },
-      },
+      { $set: user },
       { new: true }
     ) // This line makes sure that the updated document is returned
       .then((updatedUser) => {
