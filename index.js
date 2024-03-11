@@ -271,7 +271,7 @@ app.delete(
       return res.status(401).send("Permission denied");
     }
     await Users.findOneAndUpdate(
-      { username: req.params.Username },
+      { Username: req.params.Username },
       { $pull: { favoriteMovies: req.params.MovieID } },
       { new: true }
     )
